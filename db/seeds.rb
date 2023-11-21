@@ -12,19 +12,23 @@
 puts "cleaing the database"
 User.destroy_all
 puts "creating users"
-User.create!(name: "Alice", email: "alice@example.com", bio: "Hi I am Alice, I am a dog walker", password: "123456", phone_number: "07515888524")
-User.create!(name: "Bob", email: "bob@example.com", bio: "Hi I am Bob, I am a dog walker", password: "123456", phone_number: "07515888522")
-User.create!(name: "Charlie", email: "charlie@example.com", bio: "Hi I am Charlie, I am a dog walker", password: "123456", phone_number: "07515888523")
-puts "finished"
+user_a = User.create!(name: "Alice", email: "alice@example.com", bio: "Hi I am Alice, I am a dog walker", password: "123456", phone_number: "07515888524")
+user_b = User.create!(name: "Bob", email: "bob@example.com", bio: "Hi I am Bob, I am a dog walker", password: "123456", phone_number: "07515888522")
+user_c = User.create!(name: "Charlie", email: "charlie@example.com", bio: "Hi I am Charlie, I am a dog walker", password: "123456", phone_number: "07515888523")
+puts "finished creating users"
+
+puts "creating a listing..."
 
 listing_info_a = {
   title: 'One bedroom penthouse to be cleaned this Sunday after birthday party',
-  type: 'job',
+  category: 'job',
   suburb: 'Sea Point',
   rate: '400',
-  description: 'We have everything you need. It shouldnt take longer than 2 hours.'
+  description: 'We have everything you need. It shouldnt take longer than 2 hours.',
+  user: user_a
 }
 
 listing_a = Listing.create!(listing_info_a)
 
+puts "listing created."
 puts listing_a
