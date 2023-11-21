@@ -1,6 +1,6 @@
 class Listing < ApplicationRecord
   belongs_to :user
-  has_a :booking
+  has_one :booking
 
   validates :title, presence: true, uniqueness: true
   validates :rate, presence: true
