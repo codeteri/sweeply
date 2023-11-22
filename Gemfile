@@ -13,6 +13,8 @@ gem "pg", "~> 1.1"
 
 gem "devise"
 
+gem "cloudinary"
+
 gem "dotenv-rails"
 
 # Use the Puma web server [https://github.com/puma/puma]

@@ -21,7 +21,7 @@ puts "creating a listing..."
 
 listing_info_a = {
   title: 'One bedroom penthouse to be cleaned this Sunday after birthday party',
-  category: 'job',
+  category: 'Job',
   suburb: 'Sea Point',
   rate: '400',
   description: 'We have everything you need. It shouldnt take longer than 2 hours.',
