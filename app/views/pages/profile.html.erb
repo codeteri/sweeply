@@ -1,6 +1,37 @@
-<h1><%= @user.name %></h1>
-<p><%= @user.email %></p>
-<p><%= @user.bio %></p>
+<div class="profile-page">
+<h1>Your Activity</h1>
+<div class="row">
+  <div class="col-md-6 mb-4">
+    <h2>Your Bookings</h2>
+    <% if @bookings %>
+      <% @bookings.each do |booking| %>
+        <div>
+          <h3><%= booking.listing.title %></h3>
+          <p><%= booking.date %></p>
+          <!-- other booking details -->
+        </div>
+      <% end %>
+    <% else %>
+      <p>You have no bookings.</p>
+    <% end %>
+  </div>
 
-
-
+  <div class="col-md-6 mb-4">
+    <h2>Your Listingss</h2>
+    <% if @listings %>
+      <% @listings.each do |listing| %>
+        <div>
+          <h3><%= listing.title %></h3>
+          <p><%= listing.category %></p>
+          <p><%= listing.suburb %></p>
+          <p><%= listing.rate %></p>
+          <p><%= listing.description %></p>
+          <!-- other listing details -->
+        </div>
+      <% end %>
+    <% else %>
+      <p>You have no listings.</p>
+    <% end %>
+  </div>
+</div>
+</div>

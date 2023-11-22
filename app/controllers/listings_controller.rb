@@ -6,6 +6,8 @@ class ListingsController < ApplicationController
   end
 
   def show
+    @listing = Listing.find(params[:id])
+    @bookings = @listing.bookings
   end
 
   def new
