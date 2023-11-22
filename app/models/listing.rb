@@ -6,6 +6,6 @@ class Listing < ApplicationRecord
   validates :rate, presence: true
   validates :suburb, presence: true
   validates :description, length: { maximum: 500 }
-  validates :category, presence: true, inclusion: { in: %w[job service],
+  validates :category, presence: true, inclusion: { in: %w[Job Service],
                                                 message: "Please choose either 'job' or 'service'." }
 end
