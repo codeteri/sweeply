@@ -17,22 +17,9 @@ class ListingsController < ApplicationController
   def create
     @listing = current_user.listings.new(listing_params)
     if @listing.save
-      redirect_to root_path
-    else
-      render :new, status: :unprocessable_entity
-    end
-  end
-
-  def new
-    @listing = Listing.new
-  end
-
-  def create
-    @listing = current_user.listings.new(listing_params)
-    if @listing.save
       redirect_to root_path, notice: 'Listing was successfully created.'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
