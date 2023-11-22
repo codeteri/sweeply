@@ -6,6 +6,21 @@ class ListingsController < ApplicationController
   end
 
   def show
+    @listing = Listing.find(params[:id])
+    @bookings = @listing.bookings
+  end
+
+  def new
+    @listing = Listing.new
+  end
+
+  def create
+    @listing = current_user.listings.new(listing_params)
+    if @listing.save
+      redirect_to listings_path
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def new
