@@ -1,0 +1,9 @@
+<h2>New Listing</h2>
+<%= simple_form_for @listing do |f| %>
+  <%= f.input :title %>
+  <%= f.input :rate %>
+  <%= f.input :suburb %>
+  <%= f.input :category, :collection => %w[job service] %>
+  <%= f.input :description %>
+  <%= f.submit "Submit", class: "btn btn-primary" %>
+<% end %>
