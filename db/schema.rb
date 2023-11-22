@@ -15,9 +15,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_21_130305) do
   enable_extension "plpgsql"
 
   create_table "bookings", force: :cascade do |t|
-    t.string "size"
-    t.integer "bathrooms"
-    t.string "supplies"
+    t.date "date"
+    t.text "message"
+    t.boolean "confirmed", default: false
     t.bigint "user_id", null: false
     t.bigint "listing_id", null: false
     t.datetime "created_at", null: false
