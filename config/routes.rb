@@ -3,5 +3,6 @@ Rails.application.routes.draw do
   devise_for :users
   resources :listings, :services
   resources :bookings, only: [:edit, :update, :destroy, :new, :create]
-  get '/profile/:id', to: 'pages#profile', as: 'profile'
+  get 'profile', to: 'pages#profile', as: 'profile'
+  get 'profile/edit', to: 'pages#edit', as: 'edit_profile'
 end

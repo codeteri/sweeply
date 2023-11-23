@@ -10,6 +10,7 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><%= link_to 'Profile', profile_path(current_user), class: 'dropdown-item' %></li>
             <li><%= button_to 'Logout', destroy_user_session_path, method: :delete, class: 'dropdown-item' %></li>
+              <%= link_to 'Edit Profile', edit_profile_path, class: 'dropdown-item' %>
           </ul>
         </li>
       <% else %>
