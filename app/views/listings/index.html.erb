@@ -1,7 +1,20 @@
-<h2>Listings</h2>
-<p><%= link_to "Create a new listing", new_listing_path %></p>
+<div class="flexbox py-3"><h1> All Listings</h1><button type="button" class="btn btn-primary"><%= link_to "Create a new listing", new_listing_path %></button>
+</div>
+<div class="row">
+  <div class="search col-md-6 mb-4">
+    <p>Filter by Category:</p>
+    <%= form_with url: listings_path, method: :get, class: "d-flex" do |form| %>
+      <%= form.select :category, @categories %>
+  </div>
+  <div class="search col-md-6 mb-4">
+    <p>Filter by Suburb:</p>
+      <%= text_field_tag :suburb, params[:suburb], class: "form-control", placeholder: "Suburb" %>
+      <%= submit_tag "Enter", name: "", class: "btn btn-outline-primary" %>
+  </div>
+</div>
+    <% end %>
 <% @listings.each do |listing| %>
-  <div class="card-listing">
+  <div class="card-listing my-3">
     <img src="https://scontent.flyn1-1.fna.fbcdn.net/v/t39.30808-6/404552938_10168645169600230_8499043011493269070_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ZY-T34xN190AX9ZRECU&_nc_ht=scontent.flyn1-1.fna&oh=00_AfAkl-o1T7bvHxLycbFMA4_dbMd4xFQr7tD4bN4iyWqXOw&oe=6560DDED" />
     <div class="card-listing-infos">
       <h5><%= listing.category.capitalize %>: <%= listing.title %></h5>
@@ -9,38 +22,38 @@
       <p><%= listing.suburb %></p>
       <p><%= listing.description %></p>
       <!-- Button to open the modal -->
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal-<%= listing.id %>">
+      <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bookingModal-<%= listing.id %>">
         Book
       </button>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="bookingModal-<%= listing.id %>" tabindex="-1" aria-labelledby="bookingModalLabel-<%= listing.id %>" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="bookingModalLabel-<%= listing.id %>">Confirm Your Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="bookingModalLabel-<%= listing.id %>">Booking Request</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <%= form_for(Booking.new) do |f| %>
+              <div class="modal-body">
+                <div class="form-group">
+                  <%= f.label :message %>
+                  <%= f.text_area :message, class: 'form-control' %>
+                </div>
+                <div class="form-group">
+                  <%= f.label :date %>
+                  <%= f.date_field :date, class: 'form-control' %>
+                </div>
+                <%= f.hidden_field :listing_id, value: listing.id %>
+              </div>
+              <div class="modal-footer">
+                <%= f.submit 'Confirm your details', class: 'btn btn-primary' %>
+              </div>
+            <% end %>
+          </div>
+        </div>
       </div>
-      <div class="modal-body">
-       <%= form_for(Booking.new) do |f| %>
-  <div class="modal-body">
-    <div class="form-group">
-      <%= f.label :message %>
-      <%= f.text_area :message, class: 'form-control' %>
     </div>
-    <div class="form-group">
-      <%= f.label :date %>
-      <%= f.date_field :date, class: 'form-control' %>
-    </div>
-    <%= f.hidden_field :listing_id, value: listing.id %>
-  </div>
-  <div class="modal-footer">
-    <%= f.submit 'Book', class: 'btn btn-primary' %>
-  </div>
-<% end %>
-      </div>
-    </div>
-  </div>
-</div>
   </div>
 <% end %>
