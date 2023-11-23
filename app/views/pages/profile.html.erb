@@ -1,42 +1,42 @@
 <div class="profile-page">
-<h1>Your Activity</h1>
-<div class="row">
-  <div class="col-md-6 mb-4">
-    <h2>Your Bookings</h2>
-    <% if @bookings %>
-      <% @bookings.each do |booking| %>
-        <div class="card-listing">
-          <h3><%= booking.listing.title %></h3>
-          <p><%= booking.date %></p>
-          <% if booking.confirmed? %>
-            <p>Status: Confirmed</p>
-          <% else %>
-            <p>Status: Pending</p>
-          <% end %>
-          <!-- other booking details -->
-        </div>
+  <h1>Your Activity</h1>
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <h2>Your Bookings</h2>
+      <% if @bookings.any? %>
+        <% @bookings.each do |booking| %>
+          <div class="card mb-3">
+            <div class="card-body">
+              <h3 class="card-title"><%= booking.listing.title %></h3>
+              <p class="card-text"><%= booking.date %></p>
+              <p class="card-text"><%= booking.message %></p>
+              <!-- other booking details -->
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <p>You have no bookings.</p>
       <% end %>
-    <% else %>
-      <p>You have no bookings.</p>
-    <% end %>
-  </div>
+    </div>
 
-  <div class="col-md-6 mb-4">
-    <h2>Your Listings</h2>
-    <% if @listings %>
-      <% @listings.each do |listing| %>
-        <div>
-          <h3><%= listing.title %></h3>
-          <p><%= listing.category %></p>
-          <p><%= listing.suburb %></p>
-          <p><%= listing.rate %></p>
-          <p><%= listing.description %></p>
-          <!-- other listing details -->
-        </div>
+    <div class="col-md-6 mb-4">
+      <h2>Your Listings</h2>
+      <% if @listings.any? %>
+        <% @listings.each do |listing| %>
+          <div class="card mb-3">
+            <div class="card-body">
+              <h3 class="card-title"><%= listing.title %></h3>
+              <p class="card-text"><%= listing.category %></p>
+              <p class="card-text"><%= listing.suburb %></p>
+              <p class="card-text"><%= listing.rate %></p>
+              <p class="card-text"><%= listing.description %></p>
+              <!-- other listing details -->
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <p>You have no listings.</p>
       <% end %>
-    <% else %>
-      <p>You have no listings.</p>
-    <% end %>
+    </div>
   </div>
-</div>
 </div>
