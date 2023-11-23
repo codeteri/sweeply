@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-  before_action :set_booking, only: %i[show edit update destroy]
+  before_action :set_booking, only: %i[show edit update destroy confirmed!]
 
   def index
     @bookings = Booking.all
@@ -21,6 +21,10 @@ class BookingsController < ApplicationController
     end
   end
 
+  def confirmed!
+    @booking.confirmed = true
+  end
+
   def edit
   end
 
@@ -39,6 +43,6 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:title, :rate, :suburb, :description, :category)
+    params.require(:booking).permit(:date, :listing, :message, :confirmed)
   end
 end

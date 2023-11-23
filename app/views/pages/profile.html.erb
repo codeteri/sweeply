@@ -5,9 +5,14 @@
     <h2>Your Bookings</h2>
     <% if @bookings %>
       <% @bookings.each do |booking| %>
-        <div>
+        <div class="card-listing">
           <h3><%= booking.listing.title %></h3>
           <p><%= booking.date %></p>
+          <% if booking.confirmed? %>
+            <p>Status: Confirmed</p>
+          <% else %>
+            <p>Status: Pending</p>
+          <% end %>
           <!-- other booking details -->
         </div>
       <% end %>
@@ -17,7 +22,7 @@
   </div>
 
   <div class="col-md-6 mb-4">
-    <h2>Your Listingss</h2>
+    <h2>Your Listings</h2>
     <% if @listings %>
       <% @listings.each do |listing| %>
         <div>
