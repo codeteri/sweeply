@@ -1,5 +1,4 @@
 <h2>Listings</h2>
-<p><%= link_to "Create a new listing", new_listing_path %></p>
 <% @listings.each do |listing| %>
   <div class="card-listing">
     <% if listing.photo.present? %>
@@ -48,3 +47,4 @@
 </div>
   </div>
 <% end %>
+<p><%= link_to "Create a new listing", new_listing_path %></p>
