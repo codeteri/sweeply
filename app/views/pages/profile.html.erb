@@ -3,8 +3,8 @@
   <div class="row">
     <div class="col-md-6 mb-4">
       <h2>Your Bookings</h2>
-      <% if current_user.bookings.any? %>
-        <% current_user.bookings.each do |booking| %>
+      <% if @bookings.any? %>
+        <% @bookings.each do |booking| %>
           <div class="card mb-3">
             <div class="card-body">
               <h3 class="card-title"><%= booking.listing.title %></h3>
@@ -21,8 +21,8 @@
 
     <div class="col-md-6 mb-4">
       <h2>Your Listings</h2>
-      <% if current_user.listings.any? %>
-        <% current_user.listings.each do |listing| %>
+      <% if @listings.any? %>
+        <% @listings.each do |listing| %>
           <div class="card mb-3">
             <div class="card-body">
               <h3 class="card-title"><%= listing.title %></h3>
