@@ -25,7 +25,9 @@
       <p>Rate: R<%= listing.rate %>/day</p>
       <p><%= listing.suburb %></p>
       <p><%= listing.description %></p>
-      <!-- Button to open the modal -->
+      <% if current_user == listing.user %>
+      <%= link_to 'Edit', edit_listing_path(listing), class: 'btn btn-primary' %>
+    <% end %>
       <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bookingModal-<%= listing.id %>">
         Book
       </button>

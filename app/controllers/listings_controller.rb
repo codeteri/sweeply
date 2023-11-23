@@ -21,7 +21,7 @@ class ListingsController < ApplicationController
 
   def show
     @listing = Listing.find(params[:id])
-    @bookings = @listing.bookings
+    @bookings = @listing.booking
   end
 
   def new
@@ -38,10 +38,16 @@ class ListingsController < ApplicationController
   end
 
   def edit
+    @listing = Listing.find(params[:id])
   end
 
   def update
-    @listing.update(listing_params)
+    @listing = Listing.find(params[:id])
+    if @listing.update(listing_params)
+      redirect_back(fallback_location: root_path, notice: 'Listing was successfully updated.')
+    else
+      render :edit
+    end
   end
 
   def destroy
