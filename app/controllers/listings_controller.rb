@@ -3,6 +3,20 @@ class ListingsController < ApplicationController
 
   def index
     @listings = Listing.all
+    @categories = [["Select", ""], ["Job", "Job"], ["Service", "Service"]]
+    if params[:suburb].present? && params[:category] != ""
+      @listings = @listings.where(category: params[:category], suburb: params[:suburb])
+    else
+      if params[:suburb].present?
+        @listings = @listings.where(suburb: params[:suburb])
+      elsif params[:category].present?
+        if params[:category] == ""
+          @listings
+        else
+          @listings = @listings.where(category: params[:category])
+        end
+      end
+    end
   end
 
   def show
