@@ -2,7 +2,11 @@
 <p><%= link_to "Create a new listing", new_listing_path %></p>
 <% @listings.each do |listing| %>
   <div class="card-listing">
-    <img src="https://scontent.flyn1-1.fna.fbcdn.net/v/t39.30808-6/404552938_10168645169600230_8499043011493269070_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ZY-T34xN190AX9ZRECU&_nc_ht=scontent.flyn1-1.fna&oh=00_AfAkl-o1T7bvHxLycbFMA4_dbMd4xFQr7tD4bN4iyWqXOw&oe=6560DDED" />
+    <% if listing.photo.present? %>
+      <%= cl_image_tag listing.photo.key, height: 300, width: 400, crop: :fill %>
+    <% else %>
+      <img src="https://scontent.flyn1-1.fna.fbcdn.net/v/t39.30808-6/404552938_10168645169600230_8499043011493269070_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ZY-T34xN190AX9ZRECU&_nc_ht=scontent.flyn1-1.fna&oh=00_AfAkl-o1T7bvHxLycbFMA4_dbMd4xFQr7tD4bN4iyWqXOw&oe=6560DDED" />
+    <% end %>
     <div class="card-listing-infos">
       <h5><%= listing.category.capitalize %>: <%= listing.title %></h5>
       <p>Rate: R<%= listing.rate %>/day</p>
