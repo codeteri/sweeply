@@ -32,7 +32,9 @@
               <p class="card-text"><%= listing.suburb %></p>
               <p class="card-text"><%= listing.rate %></p>
               <p class="card-text"><%= listing.description %></p>
-              <!-- other listing details -->
+              <% if current_user == listing.user %>
+      <%= link_to 'Edit', edit_listing_path(listing), class: 'btn btn-primary' %>
+    <% end %>
             </div>
           </div>
         <% end %>
