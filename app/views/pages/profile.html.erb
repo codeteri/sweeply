@@ -3,15 +3,20 @@
 
 <!-- Rest of the profile page content -->
   <div class="row">
-    <div class="col-md-6 mb-4">
-      <h2>Your Bookings</h2>
+    <div class="col-md-6 my-4">
+      <h4>Your Booking Requests</h4>
       <% if @bookings.any? %>
         <% @bookings.each do |booking| %>
           <div class="card mb-3">
             <div class="card-body">
-              <h3 class="card-title"><%= booking.listing.title %></h3>
-              <p class="card-text"><%= booking.date %></p>
-              <p class="card-text"><%= booking.message %></p>
+              <h5 class="card-title"><%= booking.listing.title %></h5>
+              <p class="card-text">Date: <%= booking.date %></p>
+              <p class="card-text">Message: <%= booking.message %></p>
+              <% if booking.confirmed? %>
+                <button type="button" class="btn-sm btn btn-outline-success" disabled>Accepted</button>
+              <% else %>
+                <button type="button" class="btn btn-outline-warning btn-sm" disabled>Pending</button>
+              <% end %>
               <!-- other booking details -->
             </div>
           </div>
@@ -21,24 +26,51 @@
       <% end %>
     </div>
 
-    <div class="col-md-6 mb-4">
-      <h2>Your Listings</h2>
+    <div class="col-md-6 my-4">
+      <h4>Your Listings</h4>
       <% if @listings.any? %>
         <% @listings.each do |listing| %>
           <div class="card mb-3">
             <div class="card-body">
-              <h3 class="card-title"><%= listing.title %></h3>
-              <p class="card-text"><%= listing.category %></p>
-              <p class="card-text"><%= listing.suburb %></p>
-              <p class="card-text"><%= listing.rate %></p>
-              <p class="card-text"><%= listing.description %></p>
-              <!-- other listing details -->
+              <h5 class="card-title"><%= listing.category %>: <%= listing.title %></h5>
+              <p class="card-text">Area: <%= listing.suburb %></p>
+              <p class="card-text">Rate: R<%= listing.rate %>/day</p>
+              <p class="card-text">Info: <%= listing.description %></p>
+               <% if listing.bookings.any? %>
+                <button type="button" class="btn-sm btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#bookingsReviewModal">Review Booking Requests</button>
+              <% else %>
+                <button type="button" class="btn btn-outline-secondary btn-sm" disabled>There are currently no Booking Requests for this Listing</button>
+              <% end %>
             </div>
           </div>
         <% end %>
       <% else %>
         <p>You have no listings.</p>
       <% end %>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="bookingsReviewModal" tabindex="-1" aria-labelledby="bookingsReviewModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Booking Requests</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <% @booking_requests.each do |booking| %>
+        <div class="modal-body">
+          <p class="card-text">From: <%= booking.user.name %></p>
+          <p class="card-text">Date: <%= booking.date %></p>
+          <p class="card-text">Message: <%= booking.message %></p>
+        </div>
+        <div class="modal-footer">
+          <%# <button type="button" class="btn btn-success btn-sm" >Accept</button> %>
+          <%= link_to "Accept", accept_booking_path(booking), data: {turbo_method: :patch}, class: "btn btn-success btn-sm" %>
+          <%# <button type="button" class="btn btn-secondary btn-sm">Delete</button> %>
+          <%# <%= link_to "Delete", accept_booking_path(@booking), class: "btn btn-success btn-sm", data: {turbo_method: patch} %>
+        </div>
+       <% end %>
     </div>
   </div>
 </div>

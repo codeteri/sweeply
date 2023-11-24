@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-  before_action :set_booking, only: %i[show edit update destroy confirmed!]
+  before_action :set_booking, only: %i[show edit update destroy accept]
 
   def index
     @bookings = Booking.all
@@ -14,7 +14,6 @@ class BookingsController < ApplicationController
 
   def create
     @booking = current_user.bookings.new(booking_params)
-
     if @booking.save
       redirect_to profile_path(current_user), alert: 'Booking was successfully created.'
     else
@@ -24,8 +23,15 @@ class BookingsController < ApplicationController
     end
   end
 
-  def confirmed!
-    @booking.confirmed = true
+  def accept
+    @booking.confirmed!
+    if @booking.save
+      redirect_to profile_path(current_user), alert: 'Booking confirmed!'
+    else
+      puts "Booking errors: #{@booking.errors.full_messages}"
+      puts "Booking params: #{booking_params}"
+      redirect_to profile_path(current_user), alert: @booking.errors.full_messages.to_sentence
+    end
   end
 
   def edit
@@ -33,6 +39,7 @@ class BookingsController < ApplicationController
 
   def update
     @booking.update(booking_params)
+    @booking.save
   end
 
   def destroy

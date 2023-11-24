@@ -5,7 +5,9 @@
       <% if user_signed_in? %>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <%= cl_image_tag current_user.profile_photo.key, class: "avatar", height: 50, width: 50, crop: :fill %>
+            <% if current_user.profile_photo.attached %>
+              <%= cl_image_tag current_user.profile_photo.key, class: "avatar", height: 50, width: 50, crop: :fill %>
+            <% end %>
             <%= current_user.name %>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
