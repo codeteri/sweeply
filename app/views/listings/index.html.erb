@@ -1,73 +1,82 @@
-
 <div class="card-category" style="background-image: url(https://scontent.flyn1-1.fna.fbcdn.net/v/t39.30808-6/405841031_10168652863920230_4709162420788264638_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=5f2048&_nc_ohc=zaQbYASZf50AX_2MaxJ&_nc_ht=scontent.flyn1-1.fna&oh=00_AfClVzJ_Q6cZ1U2J1ilx2XLb8Qez1ctMjFA_WNKL47qeyQ&oe=6564FDB8)">
 </div>
-<div class="flexbox py-3"><button id="new-listing" type="button" class="btn btn-primary"><%= link_to "Create a new listing", new_listing_path %></button>
+<div class="flexbox py-3">
+  <%= link_to "Create a new listing", new_listing_path, class: "btn btn-primary" %>
 </div>
-<div class="row">
-  <div class="search col-md-6 mb-4">
+<div class="row filter-container">
+  <div class="search col-md-6 mb-4 green-box">
     <p>Filter by Category:</p>
     <%= form_with url: listings_path, method: :get, class: "d-flex" do |form| %>
     <%= form.select :category, @categories %>
   </div>
-  <div class="search col-md-6 mb-4">
-    <p>Filter by suburb:</p>
+  <div class="search col-md-6 mb-4 d-flex align-items-end green-box">
+    <p>Filter by Suburb:</p>
     <%= text_field_tag :suburb, params[:suburb], class: "form-control", placeholder: "Suburb" %>
     <%= submit_tag "Enter", name: "", class: "btn btn-outline-primary" %>
   </div>
   <% end %>
 </div>
-  <div style="width: 100%; height: 600px;"
+
+<div class="index-main-container">
+
+  <div class="listings-container">
+    <% @listings.each do |listing| %>
+      <div class="card-listing mb-3">
+        <% if listing.photo.present? %>
+          <%= cl_image_tag listing.photo.key, height: 300, width: 400, crop: :fill %>
+        <% else %>
+          <img src="https://scontent.flyn1-1.fna.fbcdn.net/v/t39.30808-6/404552938_10168645169600230_8499043011493269070_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ZY-T34xN190AX9ZRECU&_nc_ht=scontent.flyn1-1.fna&oh=00_AfAkl-o1T7bvHxLycbFMA4_dbMd4xFQr7tD4bN4iyWqXOw&oe=6560DDED" />
+        <% end %>
+        <div class="card-listing-infos">
+          <h5><%= listing.category.capitalize %>: <%= listing.title %></h5>
+          <p>Rate: R<%= listing.rate %>/day</p>
+          <p><%= listing.suburb %></p>
+          <p><%= listing.description %></p>
+          <% if current_user == listing.user %>
+          <%= link_to 'Edit', edit_listing_path(listing), class: 'btn btn-primary' %>
+        <% end %>
+          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bookingModal-<%= listing.id %>">
+            Book
+          </button>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="bookingModal-<%= listing.id %>" tabindex="-1" aria-labelledby="bookingModalLabel-<%= listing.id %>" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="bookingModalLabel-<%= listing.id %>">Booking Request</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <%= form_for(Booking.new) do |f| %>
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <%= f.label :message %>
+                      <%= f.text_area :message, class: 'form-control' %>
+                    </div>
+                    <div class="form-group">
+                      <%= f.label :date %>
+                      <%= f.date_field :date, class: 'form-control' %>
+                    </div>
+                    <%= f.hidden_field :listing_id, value: listing.id %>
+                  </div>
+                  <div class="modal-footer">
+                    <%= f.submit 'Confirm your details', class: 'btn btn-primary' %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="map-container",
+    style="width: 30%; height: 90vh;"
     data-controller="map"
     data-map-markers-value="<%= @markers.to_json %>"
     data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
   </div>
-<% @listings.each do |listing| %>
-  <div class="card-listing my-3">
-    <% if listing.photo.present? %>
-      <%= cl_image_tag listing.photo.key, height: 300, width: 400, crop: :fill %>
-    <% else %>
-      <img src="https://scontent.flyn1-1.fna.fbcdn.net/v/t39.30808-6/404552938_10168645169600230_8499043011493269070_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ZY-T34xN190AX9ZRECU&_nc_ht=scontent.flyn1-1.fna&oh=00_AfAkl-o1T7bvHxLycbFMA4_dbMd4xFQr7tD4bN4iyWqXOw&oe=6560DDED" />
-    <% end %>
-    <div class="card-listing-infos">
-      <h5><%= listing.category.capitalize %>: <%= listing.title %></h5>
-      <p>Rate: R<%= listing.rate %>/day</p>
-      <p><%= listing.suburb %></p>
-      <p><%= listing.description %></p>
-      <% if current_user == listing.user %>
-      <%= link_to 'Edit', edit_listing_path(listing), class: 'btn btn-primary' %>
-    <% end %>
-      <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bookingModal-<%= listing.id %>">
-        Book
-      </button>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="bookingModal-<%= listing.id %>" tabindex="-1" aria-labelledby="bookingModalLabel-<%= listing.id %>" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title" id="bookingModalLabel-<%= listing.id %>">Booking Request</h4>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <%= form_for(Booking.new) do |f| %>
-              <div class="modal-body">
-                <div class="form-group">
-                  <%= f.label :message %>
-                  <%= f.text_area :message, class: 'form-control' %>
-                </div>
-                <div class="form-group">
-                  <%= f.label :date %>
-                  <%= f.date_field :date, class: 'form-control' %>
-                </div>
-                <%= f.hidden_field :listing_id, value: listing.id %>
-              </div>
-              <div class="modal-footer">
-                <%= f.submit 'Confirm your details', class: 'btn btn-primary' %>
-              </div>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-<% end %>
+</div>
+

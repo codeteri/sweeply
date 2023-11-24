@@ -1,7 +1,14 @@
 .navbar-lewagon {
+  display: flex;
   justify-content: space-between;
   background: white;
 }
+
+.navbar-right-side {
+  // border: 1px solid red;
+  display: flex;
+}
+
 
 .navbar-lewagon .navbar-collapse {
   flex-grow: 0;

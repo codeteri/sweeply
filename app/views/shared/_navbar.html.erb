@@ -1,8 +1,9 @@
-<nav class="px-5 navbar navbar-expand-lg navbar-light bg-light">
+<nav class="px-5 navbar navbar-expand-lg navbar-light bg-light justify-content-between">
   <a href="/">
-  <img class="logo" src="https://res.cloudinary.com/dxs9dibvu/image/upload/v1700743516/Sweeply_logo_pzbgkf.png" alt="Sweeply Logo">
+    <img class="logo" src="https://res.cloudinary.com/dxs9dibvu/image/upload/v1700743516/Sweeply_logo_pzbgkf.png" alt="Sweeply Logo">
   </a>
-  <%= link_to 'Activity', profile_path, class: 'navbar-brand' %>
+  <div class="navbar-right-side">
+  <%= link_to 'Activity Log', profile_path(current_user), class: 'navbar-brand' %>
   <div class="collapse navbar-collapse">
       <ul class="navbar-nav ml-auto">
         <% if user_signed_in? %>
@@ -11,6 +12,7 @@
               <% if current_user.profile_photo.attached? %>
                 <%= cl_image_tag current_user.profile_photo.key, class: "avatar", height: 50, width: 50, crop: :fill %>
               <% end %>
+              <%= current_user.name %>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><%= link_to 'Profile', profile_path, class: 'dropdown-item' %></li>
@@ -25,4 +27,5 @@
         <% end %>
       </ul>
     </div>
+  </div>
 </nav>
