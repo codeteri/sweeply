@@ -4,15 +4,20 @@
   <div class="search col-md-6 mb-4">
     <p>Filter by Category:</p>
     <%= form_with url: listings_path, method: :get, class: "d-flex" do |form| %>
-      <%= form.select :category, @categories %>
+    <%= form.select :category, @categories %>
   </div>
   <div class="search col-md-6 mb-4">
-    <p>Filter by Suburb:</p>
-      <%= text_field_tag :suburb, params[:suburb], class: "form-control", placeholder: "Suburb" %>
-      <%= submit_tag "Enter", name: "", class: "btn btn-outline-primary" %>
+    <p>Filter by suburb:</p>
+    <%= text_field_tag :suburb, params[:suburb], class: "form-control", placeholder: "Suburb" %>
+    <%= submit_tag "Enter", name: "", class: "btn btn-outline-primary" %>
   </div>
+  <% end %>
 </div>
-    <% end %>
+  <div style="width: 100%; height: 600px;"
+    data-controller="map"
+    data-map-markers-value="<%= @markers.to_json %>"
+    data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+  </div>
 <% @listings.each do |listing| %>
   <div class="card-listing my-3">
     <% if listing.photo.present? %>
