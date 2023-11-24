@@ -43,7 +43,8 @@ class BookingsController < ApplicationController
   end
 
   def destroy
-    @booking.delete
+    @booking.destroy
+    redirect_to profile_path(current_user), status: :see_other
   end
 
   private
