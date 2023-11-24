@@ -12,9 +12,8 @@ gem "sprockets-rails"
 gem "pg", "~> 1.1"
 
 gem "devise"
-
 gem "cloudinary"
-
+gem "geocoder"
 gem "dotenv-rails"
 
 # Use the Puma web server [https://github.com/puma/puma]
@@ -25,8 +24,6 @@ gem "importmap-rails"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
-
-gem 'webpacker'
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"

@@ -1,27 +1,28 @@
 <nav class="px-5 navbar navbar-expand-lg navbar-light bg-light">
-<%= link_to 'Home', root_path, class: 'navbar-brand' %>
-<div class="collapse navbar-collapse">
-    <ul class="navbar-nav ml-auto">
-      <% if user_signed_in? %>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <% if current_user.profile_photo.attached %>
-              <%= cl_image_tag current_user.profile_photo.key, class: "avatar", height: 50, width: 50, crop: :fill %>
-            <% end %>
-            <%= current_user.name %>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><%= link_to 'Profile', profile_path(current_user), class: 'dropdown-item' %></li>
-            <li><%= button_to 'Logout', destroy_user_session_path, method: :delete, class: 'dropdown-item' %></li>
-              <%= link_to 'Edit Profile', edit_profile_path, class: 'dropdown-item' %>
-          </ul>
-        </li>
-      <% else %>
-          <li class="nav-item">
-            <%= link_to 'Sign In', new_user_session_path, class: 'nav-link' %>
+  <a href="/">
+  <img class="logo" src="https://res.cloudinary.com/dxs9dibvu/image/upload/v1700743516/Sweeply_logo_pzbgkf.png" alt="Sweeply Logo">
+  </a>
+  <%= link_to 'Activity', profile_path(current_user), class: 'navbar-brand' %>
+  <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto">
+        <% if user_signed_in? %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <% if current_user.profile_photo.attached? %>
+                <%= cl_image_tag current_user.profile_photo.key, class: "avatar", height: 50, width: 50, crop: :fill %>
+              <% end %>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><%= link_to 'Profile', profile_path(current_user), class: 'dropdown-item' %></li>
+              <li><%= button_to 'Logout', destroy_user_session_path, method: :delete, class: 'dropdown-item' %></li>
+                <%= link_to 'Edit Profile', edit_profile_path, class: 'dropdown-item' %>
+            </ul>
           </li>
-      <% end %>
-    </ul>
-  </div>
-  <img class = "logo" src="https://res.cloudinary.com/dxs9dibvu/image/upload/v1700743516/Sweeply_logo_pzbgkf.png"/>
+        <% else %>
+            <li class="nav-item">
+              <%= link_to 'Sign In', new_user_session_path, class: 'nav-link' %>
+            </li>
+        <% end %>
+      </ul>
+    </div>
 </nav>

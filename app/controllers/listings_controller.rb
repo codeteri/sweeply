@@ -17,11 +17,19 @@ class ListingsController < ApplicationController
         end
       end
     end
+    @markers = @listings.geocoded.map do |listing|
+      {
+        lat: listing.latitude,
+        lng: listing.longitude,
+        info_window_html: render_to_string(partial: "info_window", locals: {listing: listing}),
+        marker_html: render_to_string(partial: "marker")
+      }
+    end
   end
 
   def show
     @listing = Listing.find(params[:id])
-    @bookings = @listing.bookings
+    @bookings = @listing.booking
   end
 
   def new
@@ -38,10 +46,16 @@ class ListingsController < ApplicationController
   end
 
   def edit
+    @listing = Listing.find(params[:id])
   end
 
   def update
-    @listing.update(listing_params)
+    @listing = Listing.find(params[:id])
+    if @listing.update(listing_params)
+      redirect_back(fallback_location: root_path, notice: 'Listing was successfully updated.')
+    else
+      render :edit
+    end
   end
 
   def destroy

@@ -3,6 +3,9 @@ class Listing < ApplicationRecord
   has_many :bookings
   has_one_attached :photo
 
+  geocoded_by :suburb
+  after_validation :geocode, if: :will_save_change_to_suburb?
+
   validates :title, presence: true, uniqueness: true
   validates :rate, presence: true
   validates :suburb, presence: true

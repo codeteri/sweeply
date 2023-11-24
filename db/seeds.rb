@@ -33,7 +33,29 @@ listing_info_a = {
   user: user_a
 }
 
+listing_info_b = {
+  title: 'Two bedroom penthouse to be cleaned this Sunday after birthday party',
+  category: 'Job',
+  suburb: 'Newlands',
+  rate: '400',
+  description: 'We have everything you need. It shouldnt take longer than 2 hours.',
+  user: user_b
+}
+
+listing_info_c = {
+  title: 'Three bedroom penthouse to be cleaned this Sunday after birthday party',
+  category: 'Job',
+  suburb: 'Claremont',
+  rate: '400',
+  description: 'We have everything you need. It shouldnt take longer than 2 hours.',
+  user: user_c
+}
+
 listing_a = Listing.create!(listing_info_a)
+listing_b = Listing.create!(listing_info_b)
+listing_c = Listing.create!(listing_info_c)
 
 puts "listing created."
 puts listing_a
+puts listing_b
+puts listing_c

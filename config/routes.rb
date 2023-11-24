@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   end
   get 'profile', to: 'pages#profile', as: 'profile'
   get 'profile/edit', to: 'pages#edit', as: 'edit_profile'
+  patch 'profile', to: 'pages#update'
 end
