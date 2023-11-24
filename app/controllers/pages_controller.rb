@@ -6,6 +6,10 @@ class PagesController < ApplicationController
     @user = current_user
     @bookings = current_user.bookings
     @listings = current_user.listings
+    @listings.each do |listing|
+      @booking_requests = listing.bookings
+    end
+    # @booking = Booking.find(params[:id])
   end
 
   def edit
@@ -13,12 +17,12 @@ class PagesController < ApplicationController
   end
 
   def update
-  @user = current_user
-  if @user.update(user_params)
-    redirect_to profile_path, notice: 'User was successfully updated.'
-  else
-    render :edit
-  end
+    @user = current_user
+    if @user.update(user_params)
+      redirect_to profile_path, notice: 'User was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   private
