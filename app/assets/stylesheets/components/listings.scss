@@ -1,7 +1,8 @@
-.flexbox {
+.index-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
+  // border: 1px solid red;
 }
 
 a {
@@ -12,3 +13,30 @@ a {
 #new-listing {
   color: white;
 }
+
+.listings-container {
+  // border: 1px solid green;
+  height: 90vh;
+  overflow-y: scroll;
+  width: 70%;
+  margin-right: 1rem;
+}
+
+.index-main-container {
+  // border: 2px solid yellow;
+  display: flex;
+}
+
+.filter-container {
+  // border: 1px solid red;
+
+  p {
+    margin-bottom: 0!important;
+  }
+}
+
+.green-box {
+  // border: 1px solid green;
+}
+
+
