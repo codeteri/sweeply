@@ -56,8 +56,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_23_142439) do
 
   create_table "listings", force: :cascade do |t|
     t.string "title"
-    t.string "suburb"
     t.string "category"
+    t.string "suburb"
     t.integer "rate"
     t.text "description"
     t.bigint "user_id", null: false
