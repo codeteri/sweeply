@@ -37,7 +37,13 @@
               <p class="card-text">Rate: R<%= listing.rate %>/day</p>
               <p class="card-text">Info: <%= listing.description %></p>
                <% if listing.bookings.any? %>
-                <button type="button" class="btn-sm btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#bookingsReviewModal">Review Booking Requests</button>
+                  <% listing.bookings.each do |booking| %>
+                    <% if booking.confirmed %>
+                      <button type="button" class="btn btn-outline-danger btn-sm" disabled>Booking Confirmed</button>
+                    <% else  %>
+                      <button type="button" class="btn-sm btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#bookingsReviewModal">Review Booking Requests</button>
+                    <% end  %>
+                  <% end %>
               <% else %>
                 <button type="button" class="btn btn-outline-secondary btn-sm" disabled>There are currently no Booking Requests for this Listing</button>
               <% end %>
@@ -68,7 +74,7 @@
           <%# <button type="button" class="btn btn-success btn-sm" >Accept</button> %>
           <%= link_to "Accept", accept_booking_path(booking), data: {turbo_method: :patch}, class: "btn btn-success btn-sm" %>
           <%# <button type="button" class="btn btn-secondary btn-sm">Delete</button> %>
-          <%= link_to "Delete", bookings_path(booking), class: "btn btn-secondary btn-sm", data: {turbo_method: delete} %>
+          <%= link_to "Delete", bookings_path(booking), class: "btn btn-secondary btn-sm", data: {turbo_method: :delete} %>
         </div>
        <% end %>
     </div>

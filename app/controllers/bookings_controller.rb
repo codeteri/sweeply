@@ -15,22 +15,22 @@ class BookingsController < ApplicationController
   def create
     @booking = current_user.bookings.new(booking_params)
     if @booking.save
-      redirect_to profile_path(current_user), alert: 'Booking was successfully created.'
+      redirect_to profile_path, alert: 'Booking was successfully created.'
     else
       puts "Booking errors: #{@booking.errors.full_messages}"
       puts "Booking params: #{booking_params}"
-      redirect_to profile_path(current_user), alert: @booking.errors.full_messages.to_sentence
+      redirect_to profile_path, alert: @booking.errors.full_messages.to_sentence
     end
   end
 
   def accept
     @booking.confirmed!
     if @booking.save
-      redirect_to profile_path(current_user), alert: 'Booking confirmed!'
+      redirect_to profile_path, alert: 'Booking confirmed!'
     else
       puts "Booking errors: #{@booking.errors.full_messages}"
       puts "Booking params: #{booking_params}"
-      redirect_to profile_path(current_user), alert: @booking.errors.full_messages.to_sentence
+      redirect_to profile_path, alert: @booking.errors.full_messages.to_sentence
     end
   end
 
@@ -44,7 +44,7 @@ class BookingsController < ApplicationController
 
   def destroy
     @booking.destroy
-    redirect_to profile_path(current_user), status: :see_other
+    redirect_to profile_path, status: :see_other
   end
 
   private
